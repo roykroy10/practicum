@@ -43,3 +43,35 @@ filtered_df.to_csv("df_filtered.csv", encoding='utf-8', index=False) # save csv 
 #print(flattened.head())
 print(filtered_df.head())
 print(filtered_df)
+
+#scatter plot grlivarea/saleprice
+var = 'GrLivArea'
+data = pd.concat([df['SalePrice'], df[var]], axis=1)
+data.plot.scatter(x=var, y='SalePrice', ylim=(0,800000));
+plt.show()
+#box plot overallqual/saleprice
+var = 'OverallQual'
+data = pd.concat([df['SalePrice'], df[var]], axis=1)
+f, ax = plt.subplots(figsize=(8, 6))
+fig = sns.boxplot(x=var, y="SalePrice", data=data)
+fig.axis(ymin=0, ymax=800000);
+plt.show()
+
+
+#correlation matrix
+corrmat = df.corr()
+f, ax = plt.subplots(figsize=(12, 9))
+sns.heatmap(corrmat, vmax=.8, square=True);
+#saleprice correlation matrix
+k = 10 #number of variables for heatmap
+cols = corrmat.nlargest(k, 'SalePrice')['SalePrice'].index
+cm = np.corrcoef(df[cols].values.T)
+sns.set(font_scale=1.25)
+hm = sns.heatmap(cm, cbar=True, annot=True, square=True, fmt='.2f', annot_kws={'size': 10}, yticklabels=cols.values, xticklabels=cols.values)
+plt.show()
+
+#scatterplot
+sns.set()
+cols = ['SalePrice', 'OverallQual', 'GrLivArea', 'GarageCars', 'TotalBsmtSF', 'FullBath', 'YearBuilt']
+sns.pairplot(df[cols], size = 2.5)
+plt.show();
