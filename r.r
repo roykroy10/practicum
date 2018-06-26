@@ -241,3 +241,10 @@ nei_filtered$avglivingprice_sign = (nei_filtered$avglivingprice - nei_filtered$m
 nei_filtered$pricepersqft_sign = (nei_filtered$pricepersqft - nei_filtered$mean_pricepersqft) / nei_filtered$sd_pricepersqft
 View(nei_filtered[order(nei_filtered$pricepersqft,decreasing=F)[1:5],])
 write.csv(nei_filtered, file = "nei_filtered.csv")
+
+
+dat_reg <- lm(nei_filtered.SalePrice ~ factor.nei_filtered.Neighborhood.BrkSide+factor.nei_filtered.Neighborhood.CollgCr+factor.nei_filtered.Neighborhood.Crawfor
+              +factor.nei_filtered.Neighborhood.Edwards+factor.nei_filtered.Neighborhood.Gilbert+factor.nei_filtered.Neighborhood.NAmes
+              +factor.nei_filtered.Neighborhood.NridgHt+factor.nei_filtered.Neighborhood.NWAmes+factor.nei_filtered.Neighborhood.OldTown
+              +factor.nei_filtered.Neighborhood.Sawyer+factor.nei_filtered.Neighborhood.SawyerW+factor.nei_filtered.Neighborhood.Somerst, data=dat)
+summary(dat_reg)
