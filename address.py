@@ -35,14 +35,14 @@ def zipandstreets():
     #zip_codes = [10026, 10027, 10030, 10037, 10039,10001, 10011, 10018, 10019, 10020, 10036,10029, 10035,10010, 10016, 10017, 10022,10012, 10013, 10014,
     #10004, 10005, 10006, 10007, 10038, 1028,10002, 10003, 10009, 10021, 10028, 10044, 10065, 10075, 10128, 10023, 10024, 10025, 10031, 10032, 10033, 10034, 10040]
     zip_codes = [10037, 10039,10001]
-    for zip in zip_codes:
-        tables = pd.read_html("http://w10.melissadata.com/lookups/zipstreet.asp?Step5="+str(zip))
+    for zipc in zip_codes:
+        tables = pd.read_html("http://w10.melissadata.com/lookups/zipstreet.asp?Step5="+str(zipc))
     #   calls_df, = pd.read_html("http://w10.melissadata.com/lookups/zipstreet.asp?Step5="+str(zip), attrs = {'class': 'Tableresultborder'})
         tmp = []
-        print zip,tables[5][0]
+        print zipc,tables[5][0]
         for row in tables[5][1]:
             tmp.append(row)
-        listaddr[zip] = tmp
+        listaddr[zipc] = tmp
 
 
     with open("dict2csv.csv", 'w') as outfile:
