@@ -39,7 +39,7 @@ def zipandstreets():
         tables = pd.read_html("http://w10.melissadata.com/lookups/zipstreet.asp?Step5="+str(zipc))
     #   calls_df, = pd.read_html("http://w10.melissadata.com/lookups/zipstreet.asp?Step5="+str(zip), attrs = {'class': 'Tableresultborder'})
         tmp = []
-        print zipc,tables[5][0]
+        #print zipc,tables[5][0]
         for row in tables[5][1]:
             tmp.append(row)
         listaddr[zipc] = tmp
