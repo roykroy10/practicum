@@ -17,7 +17,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 #url = "https://www.zillow.com/homes/recently_sold/%s/%d_p"%(nei,page)
 #berkley_zip_codes = ['94702','94703','94704','94705','94706','94707','94708','94709','94710']
 
-def getPage(nei,page):
+def getPage(nei,zipc,page):
     try:
         #url = "https://www.zillow.com/homes/recently_sold/%s/%d_p"%(nei,page)
         url = "https://www.zillow.com/%s-%s/sold/days_sort/%d_p/"%(nei,zipc,page)
@@ -117,10 +117,11 @@ def main():
     neighborhoods = ['Berkeley-CA']
     berkley_zip_codes = ['94702','94703','94704','94705','94706','94707','94708','94709','94710']
     pages = list(range(1,21)) # 1 to 20
-
-    for nei in neighborhoods:
-		print('Starting neighborhood: '+nei)
-		ts = datetime.now().strftime("%d_%m_%Y_%H%M")
+    nei = neighborhoods[0]
+    ts = datetime.now().strftime("%d_%m_%Y_%H%M")
+    for z in berkley_zip_codes:
+    #for nei in neighborhoods:
+		print('Starting neighborhood: '+nei+' zipcode: '+z)
 		file_path = '%s_%s'%(nei,ts)
 		with open(file_path,'a')as csvfile:
 			fieldnames = ['zpid','title','address','city','state','postal_code','price','facts','provider','url','dateSold','price_sqft','sqft','lat','lon']
@@ -128,13 +129,13 @@ def main():
 			writer.writeheader()
 
 		for p in pages:
-			print('Starting Page: %d in neighborhood: %s'%(p,nei))
-			res = getPage(nei,p)
+			print('Starting Page: %d in neighborhood: %s in zip: %s'%(p,nei,z))
+			res = getPage(nei,z,p)
 			parseResults(res,file_path,p)
 			time.sleep(15.0)
 			print('Saved results for: %s, page %d'%(nei,p))
 
-		print('Finished neighborhood: '+nei)
+		print('Finished neighborhood: '+nei+' zipcode: '+z)
 
     print('Finished! It took: '+str(datetime.now()-start))
 
