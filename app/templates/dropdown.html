@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Roy Katz">
+    <title>Dropdown Example</title>
+</head>
+<body>
+  <table>
+  <tr><td><h3>Select a zip code from the list:</h3></td>
+  <td><form id="form1" action="/show" method="POST" enctype="multipart/form-data">
+    <select id="postal_code" name="postal_code" method="POST" action="/">
+    <option value="0" selected>Please select</option>
+    {% for zipc in postal_codes %}
+      <option value="{{zipc}}">{{zipc}}</option>
+    {% endfor %}
+  </select>
+  <select id="by" name="by" method="POST" action="/show">
+    <option value="price" selected>By Sale Price</option>
+    <option value="sqft">By Price per sqft.</option>
+  </select>
+
+    <input type="submit" value="Submit">
+  </form></td></tr>
+</table>
+  <div id="result">
+    {% if postal_code is defined %}
+        <p>You have selected: {{ postal_code }}</p>
+        {{ html_data | safe }}
+    {% endif %}
+
+  </div>
+</body>
+</html>
